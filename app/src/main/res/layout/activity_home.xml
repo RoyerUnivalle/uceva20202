@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".Home">
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Contar" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:onClick="volver"
+        android:layout_height="wrap_content"
+        android:text="Volver - Click enlinea" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interface" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delegado" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contar" />
+    <Button
+        android:id="@+id/btnColorear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="colorear"
+        android:text="UI Thread" />
+    <Button
+        android:id="@+id/btnColorear2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="colorear2"
+        android:text="Other Thread" />
+    <Button
+        android:id="@+id/btnColorear3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="colorear3"
+        android:text="Asynctask" />
+    <Button
+        android:id="@+id/bntService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="inicarServicio"
+        android:text="Servicio" />
+    <Button
+        android:id="@+id/bntHttpurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Http url" />
+    <Button
+        android:id="@+id/btnVolley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startVolley"
+        android:text="Volley" />
+
+</LinearLayout>
