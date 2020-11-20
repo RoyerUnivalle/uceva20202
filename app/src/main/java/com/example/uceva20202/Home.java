@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.uceva20202.data.Conexion;
 import com.example.uceva20202.services.MyService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,6 +69,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     // Write a message to the database
     FirebaseDatabase database;
     DatabaseReference myRef;
+
+    // Autocontent Database
+    SQLiteDatabase db;
+    Conexion conexion;
 
 
     @Override
@@ -110,10 +116,19 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
         // Instantiate the RequestQueue.
         queue = Volley.newRequestQueue(this);
+        // firebase
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("agenda");
         myRef.setValue("Hello, World!");
         this.readFirebase();
+        //sqlite database
+        conexion = new Conexion(this,"uceva",null,1);
+        db = conexion.getWritableDatabase(); // manipula la bd uceva
+        // db = conexion.getReadableDatabase(); // manipula la bd uceva
+
+        if( conexion != null){
+            Toast.makeText(getApplicationContext(), "BD Create", Toast.LENGTH_LONG).show();
+        }
 
         // Read from the database
         /*myRef.addValueEventListener(new ValueEventListener() {
@@ -134,25 +149,25 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void readFirebase(){
-        System.out.println(myRef.child("agenda"));
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(), "Hola método onStart", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "Hola método onStart", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Toast.makeText(getApplicationContext(), "Hola método onStop", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "Hola método onStop", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(getApplicationContext(), "Hola método onDestroy", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "Hola método onDestroy", Toast.LENGTH_LONG).show();
     }
 
     public void volver(View g){
@@ -181,7 +196,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         contador++;
         System.out.println("contador: " + contador);
         et1.setText(""+contador);
+        // load to firebase
         myRef.child("contador").setValue(contador);
+        // and next load to sqlite database.
+        db.beginTransaction();
+        db.execSQL("INSERT into users (id,name) VALUES ( " + contador + ",'royer');");
+        db.endTransaction();
     }
 
     public int rangoColor(){
